@@ -1,12 +1,15 @@
 'use strict';
 
 //TODO: Import tweeterMock module
+var tweeterEmitter = require('./tweeterMock.js');
 
-var tweeterListener = function (nickname, tweet) {
-	return () => {
+var tweeterListener = function (message) {
+	//return () => {
 		//TODO add a setTimeout to show new tweets afte 3 seconds
-  		console.log('New Tweet recevied from ' + nickname + ': ' + tweet);
-	}
+        setTimeout(() => {
+  		    console.log('New Tweet recevied from ' + message.nickname + ': ' + message.tweet);
+        },3000);
+	//}
 }
 
 var nickname = process.argv[2];
@@ -18,5 +21,5 @@ if(!nickname && !tweet) {
 }
 
 // TODO add a listener that listens 'tweetSent' Event from tweeterEmitter
-
+tweeterEmitter.on('tweetSent', tweeterListener);
 tweeterEmitter.sendTweet(nickname, tweet);
